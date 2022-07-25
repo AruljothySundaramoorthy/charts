@@ -5,7 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Bar, Plot } from '@antv/g2plot';
+import { Bar, BarOptions, Plot } from '@antv/g2plot';
 
 @Component({
   selector: 'app-root',
@@ -15,18 +15,10 @@ import { Bar, Plot } from '@antv/g2plot';
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('container', { static: true })
   container!: ElementRef<HTMLDivElement>;
-  lineChart: Plot<any> = Plot.getDefaultOptions();
-  ngAfterViewInit(): void {}
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.lineChart = Plot.getDefaultOptions();
-      this.updateNewChart();
-    }, 3000);
-  }
-  title = 'charts';
-  updateNewChart() {
-    if (this.lineChart) {
-      console.log(this.container.nativeElement);
+  lineChart!: Plot<BarOptions>;
+  ngAfterViewInit(): void {
+    console.log(this.container.nativeElement);
+    if (this.container) {
       const data = [
         { year: '1951 年', value: 38 },
         { year: '1952 年', value: 52 },
@@ -47,6 +39,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.lineChart.render();
     }
   }
+  ngOnInit(): void {}
+  title = 'charts';
+
   update() {
     if (this.lineChart) {
       console.log(this.lineChart);
